@@ -1,3 +1,5 @@
+import sun.awt.Mutex;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Random;
@@ -22,31 +24,36 @@ public class CommonResource1 {
     static Semaphore semaphoreConsumer = new Semaphore(0);
     static Semaphore semaphoreThread1_4 = new Semaphore(1);
     static Semaphore semaphoreThread2_3_5 = new Semaphore(0);
+    static Mutex mutex = new Mutex();
 
 
 
-    public void getStack() throws InterruptedException {
-
+    public synchronized void getStack() throws InterruptedException {
+    //mutex.lock();
         synchronized(System.out){
             System.out.println("Thread4 gets: " + stack.peekFirst());
         }
         stack.pop();
-
+    //mutex.unlock();
     }
 
-    public void putStackSemaphore() throws InterruptedException {
-            semaphoreThread1_4.acquire();
+    public synchronized void putStackSemaphore() throws InterruptedException {
+            //mutex.lock();
+            //semaphoreThread1_4.acquire();
             stack.addFirst(random.nextInt());
             synchronizeSystemOutString(1);
-            semaphoreThread2_3_5.release();
+            //semaphoreThread2_3_5.release();
+            //mutex.unlock();
 
     }
 
     public synchronized void putStackCyclicBarrier(int i) throws InterruptedException, BrokenBarrierException {
-        semaphoreThread2_3_5.acquire();
+        //mutex.lock();
+        //semaphoreThread2_3_5.acquire();
         stack.addFirst(random.nextInt());
         synchronizeSystemOutString(i);
-        semaphoreThread1_4.release();
+        //semaphoreThread1_4.release();
+        //mutex.unlock();
     }
 
     public void synchronizeSystemOutString(int i) {

@@ -11,10 +11,10 @@ public class BarrieredThread implements Runnable {
     CommonResource2 commonResource2;
     int number;
 
-    public BarrieredThread(CommonResource1 comRes1, int i) {
+    public BarrieredThread(CommonResource1 comRes1,CommonResource2 comRes2, int i) {
         number = i;
         commonResource1 = comRes1;
-        //commonResource2 = commonResource2;
+        commonResource2 = comRes2;
         new Thread(this, "Thread" + number).start();
 
     }
@@ -26,6 +26,9 @@ public class BarrieredThread implements Runnable {
         while (true) {
             try {
                 commonResource1.putStackCyclicBarrier(number);
+                commonResource2.Mutex1_2_3.lock();
+                commonResource2.setSemaphore(number);
+                commonResource2.Mutex1_2_3.unlock();
                 commonResource1.cyclicBarrier.await();
             } catch (InterruptedException e) {
                 e.printStackTrace();

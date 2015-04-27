@@ -66,12 +66,12 @@ public class CommonResource2 {
 
     public void setSemaphore(int i) {
 
-        Mutex1_2_3.unlock();
 
-        synchronizeSystemOutString(i);
+
 
         switch (i){
-            case 1: setJavaByte();
+            case 1: synchronizeSystemOutString(i);
+                    setJavaByte();
                     synchronizeSystemNumber(javaByte);
                     setJavaChar();
                     synchronizeSystemNumber(javaChar);
@@ -81,7 +81,9 @@ public class CommonResource2 {
                     synchronizeSystemNumber(javaLong);
                     break;
 
-            case 2: setJavaShort();
+            case 2:
+                    synchronizeSystemOutString(i);
+                    setJavaShort();
                     synchronizeSystemNumber(javaShort);
                     setJavaLong();
                     synchronizeSystemNumber(javaLong);
@@ -91,7 +93,9 @@ public class CommonResource2 {
                     synchronizeSystemNumber(javaChar);
                     break;
 
-            case 3: setJavaByte();
+            case 3:
+                    synchronizeSystemOutString(i);
+                    setJavaByte();
                     synchronizeSystemNumber(javaByte);
                     setJavaShort();
                     synchronizeSystemNumber(javaShort);
@@ -101,43 +105,42 @@ public class CommonResource2 {
                     synchronizeSystemNumber(javaChar);
                     break;
         }
-        Mutex1_2_3.lock();
     }
 
     public void synchronizeSystemOutString(int i) {
         synchronized (System.out){
-            System.out.println("Thread1 changes: ");
+            System.out.println("Thread" + i + " changes: ");
         }
     }
 
     public void synchronizeSystemNumber(byte javaType) {
         synchronized (System.out){
-            System.out.print("javaByte changed to: " + getJavaByte());
+            System.out.println("javaByte changed to: " + getJavaByte());
         }
     }
 
 
     public void synchronizeSystemNumber(short javaType){
         synchronized (System.out){
-            System.out.print("javaShort changed to: " + getJavaShort());
+            System.out.println("javaShort changed to: " + getJavaShort());
         }
     }
 
     public void synchronizeSystemNumber(int javaType){
         synchronized (System.out){
-            System.out.print("javaInt changed to: " + getJavaInt());
+            System.out.println("javaInt changed to: " + getJavaInt());
         }
     }
 
     public void synchronizeSystemNumber(long javaType){
         synchronized (System.out){
-            System.out.print("javaLong changed to: " + getJavaLong());
+            System.out.println("javaLong changed to: " + getJavaLong());
         }
     }
 
     public void synchronizeSystemNumber(char javaType){
         synchronized (System.out){
-            System.out.print("javaChar changed to: " + getJavaChar());
+            System.out.println("javaChar changed to: " + getJavaChar());
         }
     }
 

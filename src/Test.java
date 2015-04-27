@@ -8,17 +8,15 @@ import java.util.concurrent.CyclicBarrier;
 public class Test {
     public static void main(String[] args) {
         CommonResource1 commonResource1 = new CommonResource1();
+        CommonResource2 commonResource2 = new CommonResource2();
 
 
 
-        new Thread1(commonResource1);
-        //new Thread2(commonResource1);
-        //new Thread3(commonResource1);
+        new Thread1(commonResource1, commonResource2);
         new Thread4(commonResource1);
-        //new Thread5(commonResource1);
-        new BarrieredThread(commonResource1,2);
-        new BarrieredThread(commonResource1,3);
-        new BarrieredThread(commonResource1,5);
+        new BarrieredThread(commonResource1, commonResource2,2);
+        new BarrieredThread(commonResource1, commonResource2,3);
+        new BarrieredThread(commonResource1, commonResource2,5);
 
 
     }
